@@ -52,6 +52,30 @@ void showAccount(int i) {
     printf("Created Time   : %s\n", accounts[i].created_time);
 }
 
+/* ---------- SEARCH ACCOUNT (SECURE) ---------- */
+void searchAccount() {
+    char num[20], pass[20];
+
+    printf("\n--- Search Account (%s) ---\n", BANK_NAME);
+    printf("Enter Account Number: ");
+    scanf("%s", num);
+
+    int index = findAccount(num);
+
+    if (index == -1) {
+        printf("Account not found!\n");
+        return;
+    }
+
+    printf("Enter Password: ");
+    scanf("%s", pass);
+
+    if (strcmp(accounts[index].password, pass) == 0) {
+        showAccount(index);
+    } else {
+        printf("Incorrect password! Access denied.\n");
+    }
+}
 /* ---------- LOGIN ---------- */
 int login() {
     char num[20], pass[20];
@@ -200,7 +224,8 @@ int main() {
         printf("\n==== %s ====\n", BANK_NAME);
         printf("1. Login\n");
         printf("2. Create Account\n");
-        printf("3. Exit\n");
+        printf("3. Search Account\n");
+        printf("4. Exit\n");
         printf("Choose: ");
         scanf("%d", &choice);
 
@@ -216,6 +241,10 @@ int main() {
             createAccount();
 
         } else if (choice == 3) {
+
+            searchAccount();
+
+        } else if (choice == 4) {
 
             printf("Thank you for using %s\n", BANK_NAME);
             break;
